@@ -9,15 +9,15 @@ function getInput() {
     return prompt();
 }
 function randomPlay() {
-    return Math.random();
-    // var randomNumber = Math.random();
-    // if (randomNumber < 0.33) {
-    //     return "rock";
-    // } else if (randomNumber < 0.66) {
-    //     return "paper";
-    // } else {
-    //     return "scissors";
-    // }
+    //return Math.random();
+    var randomNumber = Math.random();
+    if (randomNumber < 0.33) {
+        return "rock";
+    } else if (randomNumber < 0.66) {
+        return "paper";
+    } else {
+        return "scissors";
+    }
 }
 ////////////////////////////////////////////////
 /*           Write Your Code Below            */
@@ -30,9 +30,9 @@ function getPlayerMove(move) {
       return move;
     }
     else{
+      // However, if `move` is not specified / is null, your expression should equal `getInput()`.
       move = getInput();
     }
-    // However, if `move` is not specified / is null, your expression should equal `getInput()`.
     return move;
 }
 
@@ -90,38 +90,38 @@ function getWinner(playerMove,computerMove) {
 }
 
 
-function playToFive() {
-    console.log("Let's play Rock, Paper, Scissors");
+function playTo(numTimes) {
+    console.log("Let's play Rock, Paper, Scissors. First one to " + numTimes + " wins.");
     var playerWins = 0;
     var computerWins = 0;
     // Write code that plays 'Rock, Paper, Scissors' until either the player or the computer has won five times.
-    while(playerWins<5 && computerWins<5){
-        if (getWinner(getPlayerMove(), getComputerMove())==='computer'){
-            console.log("Computer wins this one!");
-            computerWins +=1;
-            console.log('player score: ' + playerWins + ' computer score: ' + computerWins);
-            console.log(' ');
+    while(playerWins<numTimes && computerWins<numTimes){
+        var gameWinner = getWinner(getPlayerMove(), getComputerMove());
+        if (gameWinner ==='computer'){
+            computerWins += 1;
+            console.log("Computer wins this one.");
+            console.log(['player score: ' + playerWins, 'computer score: ' + computerWins]);
+        }
+        else if (gameWinner === 'player'){
+            playerWins += 1;
+            console.log("Player wins this one.");
+            console.log(['player score: ' + playerWins, 'computer score: ' + computerWins]);
         }
         else{
-            console.log("Player wins this one!");
-            playerWins +=1;
-            console.log('player score: ' + playerWins +  ' computer score: ' + computerWins);
-            console.log(' ');
+            console.log("It's a tie!");
+            console.log(['player score: ' + playerWins, 'computer score: ' + computerWins]);
         }
     }
 
-    if (computerWins > playerWins){
-        console.log(' ');
-        console.log("COMPUTER WINS ALL!");
-        console.log(' ');
+    var ultimateWinner;
+
+    if(playerWins > computerWins){
+        ultimateWinner = 'PLAYER';
     }
     else{
-        console.log(' ');
-        console.log("PLAYER WINS ALL!");
-        console.log(' ');
+        ultimateWinner = 'COMPUTER';
     }
 
+    console.log(ultimateWinner + " WINS THE TOURNAMENT!");
     return ['player score: ' + playerWins, 'computer score: ' + computerWins];
 }
-
-playToFive();
